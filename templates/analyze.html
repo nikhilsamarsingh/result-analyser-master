@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+    <link href="{% static 'css/select2.min.css' %}" rel="stylesheet"/>
+{% endblock css %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1>Welcome to the Result Analyzer...</h1>
+    </div>
+    <div id="no-data"></div>
+    {% if messages %}
+        <div id="wrong-data" class="alert alert-error alert-danger">
+
+            {% for msg in messages %}
+                {{ msg }}
+            {% endfor %}
+
+        </div>
+    {% endif %}
+
+    {% crispy form %}
+
+{% endblock %}
+
+{% block js %}
+
+    <script src="{% static 'js/select2.min.js' %}"></script>
+    <script src="{% static 'js/error.js' %}"></script>
+
+    <script type="text/javascript">
+    $('select').select2();
+    // No idea how the following line works, it just calls the RemoveError function
+    // whenever there is any change in the form data
+    $eventSelect.on("change", function (e) { RemoveError(); });
+    </script>
+
+{% endblock js %}
